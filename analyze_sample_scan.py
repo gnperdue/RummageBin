@@ -106,5 +106,5 @@ for error in results:
         if runnum in run_dictionary:
             descr = run_dictionary[runnum]
             nevt += descr['evts']
-            print "%s: %d / %d = %f" % \
-                (error, nerror, nevt, float(nerror)/nevt)
+    print "%s: %d / %d = %f" % \
+        (error, nerror, nevt, float(nerror)/nevt)
