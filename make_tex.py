@@ -36,7 +36,7 @@ for i in range(len(ll)):
     stmnt = ''
     for word in line:
         # build the split and swap $ for currency with escaped latex
-        stmnt += word.replace('$', '\\$') + ' & '
+        stmnt += word.replace('$', '\\$').replace('#', '\\#') + ' & '
     # strings are immutable so make a new one that drops the last two
     # chars ('& ') and then add the latex "eol" (\\).
     new_stmnt = stmnt[:-2]
