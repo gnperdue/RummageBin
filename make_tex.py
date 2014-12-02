@@ -6,16 +6,17 @@ Usage:
     make_tex.py file.csv
 '''
 
+from __future__ import print_function
 import sys
 import csv
 
 if '-h' in sys.argv or '--help' in sys.argv:
-    print __doc__
+    print(__doc__)
     sys.exit(1)
 
 if not len(sys.argv) == 2:
-    print 'The scanfile log argument is mandatory.'
-    print __doc__
+    print('The scanfile log argument is mandatory.')
+    print(__doc__)
     sys.exit(1)
 
 filename = sys.argv[1]
@@ -28,9 +29,9 @@ ll = list(csv.reader(open(filename, 'rU'), delimiter=','))
 
 for i in range(len(ll)):
     if i == 0:
-        print "\\toprule"
+        print("\\toprule")
     else:
-        print "\\midrule"
+        print("\\midrule")
 
     line = ll[i]
     stmnt = ''
@@ -41,6 +42,6 @@ for i in range(len(ll)):
     # chars ('& ') and then add the latex "eol" (\\).
     new_stmnt = stmnt[:-2]
     new_stmnt += '\\\\'
-    print new_stmnt
+    print(new_stmnt)
 
-print "\\bottomrule"
+print("\\bottomrule")

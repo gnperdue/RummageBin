@@ -13,16 +13,17 @@ script. This means the content of the file is expected to look like so:
     1407444969 ERROR gvldtest : [n] <gVldSampleScan.cxx::main (213)> :
 """
 
+from __future__ import print_function
 import sys
 import re
 
 if '-h' in sys.argv or '--help' in sys.argv:
-    print __doc__
+    print(__doc__)
     sys.exit(1)
 
 if not len(sys.argv) == 2:
-    print 'The scanfile log argument is mandatory.'
-    print __doc__
+    print('The scanfile log argument is mandatory.')
+    print(__doc__)
     sys.exit(1)
 
 filename = sys.argv[1]
@@ -95,7 +96,7 @@ with open(filename, 'r') as f:
                 results[error] = {filenum: 1}
 
 
-print results
+print(results)
 
 for error in results:
     nerror = 0
@@ -106,5 +107,5 @@ for error in results:
         if runnum in run_dictionary:
             descr = run_dictionary[runnum]
             nevt += descr['evts']
-    print "%s: %d / %d = %f" % \
-        (error, nerror, nevt, float(nerror)/nevt)
+    print("%s: %d / %d = %f" %
+          (error, nerror, nevt, float(nerror)/nevt))

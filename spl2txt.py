@@ -4,6 +4,7 @@
 # and neutrino and antineutrino entries (muon type) and parses them
 # into two text files for easier plotting with Python / R.
 
+from __future__ import print_function
 import sys
 from xml.etree import ElementTree as ET
 
@@ -102,7 +103,7 @@ def transform(xml_file_name):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print "This script requires a filename argument."
+        print("This script requires a filename argument.")
         sys.exit(2)
 
     transform(sys.argv[1])
