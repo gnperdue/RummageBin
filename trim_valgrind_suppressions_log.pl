@@ -11,7 +11,6 @@ if ($#ARGV < 2 ) {
 }
 
 foreach $argnum (0 .. $#ARGV) {
-  print $argnum."\n";
   if (lc($ARGV[$argnum]) eq "-i") {
     $logfile = $ARGV[$argnum+1];
   }
@@ -19,8 +18,6 @@ foreach $argnum (0 .. $#ARGV) {
     $suppfile = $ARGV[$argnum+1];
   }
 }
-print $logfile."\n";
-print $suppfile."\n";
 
 open INPUT, $logfile or die "Can't open raw valgrind log file!";
 open OUTPUT, ">$suppfile" or die "Can't open suppressions file!";
