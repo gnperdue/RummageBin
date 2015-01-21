@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 """
 Walk the directory tree and replace the '20XX' copyright dates in lines with
-'Copyright 2003-20XX' with '2015'.
+'Copyright 2003-20XX' with '2015'. Usage:
+
+    ./bump_copyright.py          # use "." as the start directory
+    ./bump_copyright.py dirname  # use dirname as the start directory
 """
 
 from __future__ import print_function
@@ -33,7 +36,7 @@ def get_the_paths(root_dir="."):
     Get all the files NOT in hidden directories
     """
     path_collection = []
-    for dirpath, dirnames, filenames in os.walk("."):
+    for dirpath, dirnames, filenames in os.walk(root_dir):
         use_dir = not has_hidden_dirs(dirpath)
         if use_dir:
             for filename in filenames:
@@ -64,5 +67,9 @@ if __name__ == '__main__':
         print(__doc__)
         sys.exit(1)
 
-    path_collection = get_the_paths()
+    d = "."
+    if len(sys.argv) > 1:
+        d = sys.argv[1]
+
+    path_collection = get_the_paths(d)
     do_the_subs(path_collection, search_string, replace_string)
