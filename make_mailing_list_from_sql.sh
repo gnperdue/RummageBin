@@ -1,8 +1,10 @@
 #!/bin/sh
 
 mysql -p --skip-column-names -e \
-"SELECT CONCAT_WS('|', formal_title,
-name_first, name_last, email_address)
-AS 'Contact Information for Premium Members'
+"SELECT CONCAT_WS(',',
+IFNULL(formal_title, ' '),
+IFNULL(name_first, ' '),
+IFNULL(name_last, ' '),
+IFNULL(email_address, ' '))
 FROM the_db.member_info WHERE membership_type = 'premium'
-AND membership_expiration > CURDATE();" > contact_list.txt
+AND membership_expiration > CURDATE();" > contact_info.txt
