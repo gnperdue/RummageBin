@@ -1,9 +1,11 @@
 #!/usr/bin/env python
+"""
+This script reads in a GENIE xml spline file, assuming one channel
+and neutrino and antineutrino entries (muon type) and parses them
+into two text files for easier plotting with Python / R.
 
-# This script reads in a GENIE xml spline file, assuming one channel
-# and neutrino and antineutrino entries (muon type) and parses them
-# into two text files for easier plotting with Python / R.
-
+"This script requires a filename argument."
+"""
 from __future__ import print_function
 import sys
 import re
@@ -90,6 +92,11 @@ def transform(xml_file_name):
 
 
 if __name__ == '__main__':
+
+    if '-h' in sys.argv or '--help' in sys.argv:
+        print(__doc__)
+        sys.exit(1)
+    
     if len(sys.argv) < 2:
         print("This script requires a filename argument.")
         sys.exit(2)

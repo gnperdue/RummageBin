@@ -1,5 +1,8 @@
 #!/usr/bin/env python
-
+"""
+Walk a directory structure and build a list of files, filtered by a very simple
+regular expression. Then write those files, one per line, to a file.
+"""
 from __future__ import print_function
 import os
 
@@ -28,7 +31,7 @@ def write_list_of_files_to_file(list_of_files, filenam):
 
 if __name__ == '__main__':
 
-    data_path  = '/pnfs/minerva/scratch/users/minervapro'
+    data_path = '/pnfs/minerva/scratch/users/minervapro'
     data_path += '/mc_production_genie_DFR_v10r8p4/grid/central_value/minerva'
     data_path += '/genie/v10r8p4/00/01/00/00/'
 
