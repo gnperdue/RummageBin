@@ -11,15 +11,21 @@ import re
 
 
 plane_counter = {'0': 0, '1': 0, '2': 0}
+plane_modules = {'0': [], '1': [], '2': []}
 with open("mnv1.txt", "r") as f:
     for line in f:
         # check for lines containing "data"
         if re.search(";", line):
             # strip newline and split by `;`
             bits = line.rstrip().split(';')
+            modstr = bits[1]
             viewstr = bits[-1]
-            view = viewstr[-1]
             # build up the counter dictionary
+            view = viewstr[-1]
             plane_counter[view] += 1
+            # build up the plane lists
+            modnum = int(modstr.split('=')[1])
+            plane_modules[view].append(modnum)
 
 print(plane_counter)
+print(plane_modules)
