@@ -8,11 +8,18 @@
 
 # First, remove any existing syntastic config files.
 rm -f .syntastic_cpp_config
+
 # Next, create our new config file.
+
 # First, get the base install dirs 
 printenv | grep MINERVA | grep ROOT | grep -v PATH | perl -ne '@l=split("=",$_);print "-I".@l[1];' >> .syntastic_cpp_config
+
 # Second, get the cmt user area stuff
 printenv | grep Minerva_ | grep ROOT | grep -v PATH | perl -ne '@l=split("=",$_);print "-I".@l[1];' >> .syntastic_cpp_config
+
+# Third, get the special ana macro stuff (need to add these by hand)
+printenv | grep NUKECC_ANA | grep -v PATH | perl -ne '@l=split("=",$_);print "-I".@l[1];' >> .syntastic_cpp_config
+
 # Finally, get ROOT - but, we have to go there, otherwise the path ends up confusing syntastic
 # (too many ../../'s and softlinks and junk)
 RDIR=`printenv | grep ROOTSYS | perl -ne 'chomp $_; @l=split("=",$_); print @l[1]."/include";'`
