@@ -1,6 +1,12 @@
 #!/bin/sh
 
-SYNAME=".syntastic_cpp_config_genie"
+if [[ -z $GENIE ]]; then
+    echo Need to set GENIE env var.
+    exit 1
+fi
+
+
+SYNAME=$PWD"/.syntastic_cpp_config_genie"
 
 # This script uses the GENIE software environment to create an include paths file for Syntastic.
 #  https://github.com/scrooloose/syntastic
@@ -8,8 +14,21 @@ SYNAME=".syntastic_cpp_config_genie"
 # First, remove any existing syntastic config files.
 rm -f $SYNAME
 
-# First, get GENIE
+# First, get basic GENIE stuff
 printenv | grep GENIE | grep -v PATH | perl -ne '@l=split("=",$_);print "-I".@l[1];' >> $SYNAME
+
+# Next, get all the silliness
+pushd $GENIE/src  >& /dev/null
+dirlist=`ls`
+for dir in $dirlist
+do
+    cd $dir
+    TEMPDIR=`pwd`
+    echo "-I"${TEMPDIR} 1>> $SYNAME
+    cd ..
+done
+
+popd >& /dev/null
 
 # Finally, get ROOT - but, we have to go there, otherwise the path ends up confusing syntastic
 # (too many ../../'s and softlinks and junk)
