@@ -19,12 +19,12 @@ printenv | grep GENIE | grep -v PATH | perl -ne '@l=split("=",$_);print "-I".@l[
 
 # Next, get all the silliness
 pushd $GENIE/src  >& /dev/null
+echo "-I"${PWD} 1>> $SYNAME
 dirlist=`ls`
 for dir in $dirlist
 do
     cd $dir
-    TEMPDIR=`pwd`
-    echo "-I"${TEMPDIR} 1>> $SYNAME
+    echo "-I"${PWD} 1>> $SYNAME
     cd ..
 done
 
