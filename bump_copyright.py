@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Walk the directory tree and replace the '20XX' copyright dates in lines with
-'Copyright 2003-20XX' with '2015'. Usage:
+'Copyright 2003-20XX' with '2016'. Usage:
 
     ./bump_copyright.py          # use "." as the start directory
     ./bump_copyright.py dirname  # use dirname as the start directory
@@ -14,7 +14,7 @@ import sys
 
 
 search_string = r'Copyright \(c\) 2003-20\d\d'
-replace_string = r'Copyright (c) 2003-2015'
+replace_string = r'Copyright (c) 2003-2016'
 
 
 def has_hidden_dirs(dirpath):
@@ -31,7 +31,7 @@ def has_hidden_dirs(dirpath):
     return False
 
 
-def get_the_paths(root_dir="."):
+def get_the_paths(root_dir):
     """
     Get all the files NOT in hidden directories
     """
@@ -41,7 +41,7 @@ def get_the_paths(root_dir="."):
         if use_dir:
             for filename in filenames:
                 # Don't try to replace the strings in this script
-                if not re.search(sys.argv[0].split("/")[1], filename):
+                if not re.search(sys.argv[0].split("/")[-1], filename):
                     fullpath = os.path.join(dirpath, filename)
                     path_collection.append(fullpath)
     return path_collection
