@@ -38,6 +38,9 @@ if __name__ == '__main__':
     parser.add_option('--root', dest='root',
                       default='/minerva/data/users',
                       help='Root directory', metavar='ROOT_DIR')
+    parser.add_option('--tuple', dest='tuple_type',
+                      default='AnaTuple',
+                      help='Ntuple type', metavar='TUPLE_TYPE')
     (options, args) = parser.parse_args()
 
     run_sub_dict = defaultdict(list)
@@ -45,7 +48,8 @@ if __name__ == '__main__':
         for sub in range(options.min_sub, options.max_sub + 1):
             run_sub_dict[run].append(sub)
 
-    ana_tuple_file = re.compile(r'^SIM_minerva_(\d{8})_.*Ana_Tuple.*\.root$')
+    ana_tuple_file = re.compile(r'^SIM_minerva_(\d{8})_.*%s.*\.root$' %
+            options.tuple_type)
     four_digits_plus = re.compile(r'[0-9][0-9][0-9][0-9]+')
     for root, dirs, files in os.walk(options.root):
         for name in files:
