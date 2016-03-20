@@ -39,7 +39,7 @@ if __name__ == '__main__':
                       default='/minerva/data/users',
                       help='Root directory', metavar='ROOT_DIR')
     parser.add_option('--tuple', dest='tuple_type',
-                      default='AnaTuple',
+                      default='Ana_Tuple',
                       help='Ntuple type', metavar='TUPLE_TYPE')
     (options, args) = parser.parse_args()
 
