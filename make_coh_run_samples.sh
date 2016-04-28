@@ -12,11 +12,11 @@ echo "#Current, energy, run" > coh_run_log.csv
 for energy in $energies
 do
     run=`echo $energy | perl -lne 'printf "%d", int(10000 + 10 * $_);'`
-    ./do_a_run.sh --list COH-CC --target 1000060120 --energy $energy --nus 14 --run $run --seed $run --numevt 50000
+    ./do_a_run.sh --list CCCOH --target 1000060120 --energy $energy --nus 14 --run $run --seed $run --numevt 50000
     ./do_ghep_conversion.sh $run
     echo "CC, $energy, $run" >> coh_run_log.csv
     run=`echo $energy | perl -lne 'printf "%d", int(20000 + 10 * $_);'`
-    ./do_a_run.sh --list COH-NC --target 1000060120 --energy $energy --nus 14 --run $run --seed $run --numevt 50000
+    ./do_a_run.sh --list NCCOH --target 1000060120 --energy $energy --nus 14 --run $run --seed $run --numevt 50000
     ./do_ghep_conversion.sh $run
     echo "NC, $energy, $run" >> coh_run_log.csv
 done
