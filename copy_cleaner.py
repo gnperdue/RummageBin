@@ -25,8 +25,9 @@ def enumerate_files(path, keystring):
 if __name__ == '__main__':
 
     dpath = r'/Users/perdue/Dropbox/Apps/Manning Books'
-    search_string = r'(.*)\(1\)(.*)'
+    search_string = r'(.*)\(\d\)(.*)'
 
     files = enumerate_files(dpath, search_string)
     for file in files:
+        print(file)
         os.remove(file)
