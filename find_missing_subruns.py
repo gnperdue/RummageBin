@@ -47,7 +47,7 @@ if __name__ == '__main__':
                       type='int')
     parser.add_option('--root', dest='roots', type='string',
                       callback=arg_list_split, help='Root directory',
-                      metavar='ROOT_DIR')
+                      action='callback', metavar='ROOT_DIR')
     parser.add_option('--tuple', dest='tuple_type',
                       default='Ana_Tuple',
                       help='Ntuple type', metavar='TUPLE_TYPE')
@@ -62,8 +62,8 @@ if __name__ == '__main__':
                                 options.tuple_type)
     four_digits_plus = re.compile(r'[0-9][0-9][0-9][0-9]+')
     roots = set(options.roots)
-    for root in roots:
-        for root, dirs, files in os.walk(options.root):
+    for rootd in roots:
+        for root, dirs, files in os.walk(rootd):
             for name in files:
                 m = re.search(ana_tuple_file, name)
                 if m is not None:
