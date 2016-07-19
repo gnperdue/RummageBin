@@ -11,8 +11,18 @@ work with other file types, etc.
 Usage:
     python find_missing_subruns.py --root "/path/to/files" \
             --min_run 112202 --max_run 112205 --min_sub 1 --max_sub 5000
+
+We may supply a comma separated list for the `--root`.
 """
 from __future__ import print_function
+
+
+def arg_list_split(option, opt, value, parser):
+    """
+    split a comma-separated list
+    """
+    setattr(parser.values, option.dest, value.split(','))
+
 
 if __name__ == '__main__':
 
@@ -35,9 +45,9 @@ if __name__ == '__main__':
     parser.add_option('--max_sub', dest='max_sub', default=5000,
                       help='Max sub number', metavar='MAX_SUB',
                       type='int')
-    parser.add_option('--root', dest='root',
-                      default='/minerva/data/users',
-                      help='Root directory', metavar='ROOT_DIR')
+    parser.add_option('--root', dest='roots', type='string',
+                      callback=arg_list_split, help='Root directory',
+                      metavar='ROOT_DIR')
     parser.add_option('--tuple', dest='tuple_type',
                       default='Ana_Tuple',
                       help='Ntuple type', metavar='TUPLE_TYPE')
@@ -49,24 +59,26 @@ if __name__ == '__main__':
             run_sub_dict[run].append(sub)
 
     ana_tuple_file = re.compile(r'^SIM_minerva_(\d{8})_.*%s.*\.root$' %
-            options.tuple_type)
+                                options.tuple_type)
     four_digits_plus = re.compile(r'[0-9][0-9][0-9][0-9]+')
-    for root, dirs, files in os.walk(options.root):
-        for name in files:
-            m = re.search(ana_tuple_file, name)
-            if m is not None:
-                # look for all numbers at least 4 digits long
-                numbers = re.findall(four_digits_plus, name)
-                rn = int(numbers[0])
-                if rn in run_sub_dict:
-                    for n in numbers[1:]:
-                        l = run_sub_dict[rn]
-                        try:
-                            l.remove(int(n))
-                        except ValueError:
-                            print(n, "is not in the list")
-                            pass
-                        run_sub_dict[rn] = l
+    roots = set(options.roots)
+    for root in roots:
+        for root, dirs, files in os.walk(options.root):
+            for name in files:
+                m = re.search(ana_tuple_file, name)
+                if m is not None:
+                    # look for all numbers at least 4 digits long
+                    numbers = re.findall(four_digits_plus, name)
+                    rn = int(numbers[0])
+                    if rn in run_sub_dict:
+                        for n in numbers[1:]:
+                            l = run_sub_dict[rn]
+                            try:
+                                l.remove(int(n))
+                            except ValueError:
+                                print(n, "is not in the list")
+                                pass
+                            run_sub_dict[rn] = l
 
     for run, subs in run_sub_dict.items():
         sys.stdout.write(str(run) + " ")
