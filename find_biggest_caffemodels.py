@@ -51,9 +51,9 @@ if __name__ == '__main__':
             data_max = get_iternum(file, data_dann_pat, data_max)
             no_max = get_iternum(file, no_dann_pat, no_max)
 
-    print(options.path + options.le_dann + str(le_max) +
+    print('file_le=' + options.path + options.le_dann + str(le_max) +
             '.caffemodel')
-    print(options.path + options.data_dann + str(data_max) +
+    print('file_data=' + options.path + options.data_dann + str(data_max) +
             '.caffemodel')
-    print(options.path + options.no_dann + str(no_max) +
+    print('file_no=' + options.path + options.no_dann + str(no_max) +
             '.caffemodel')
