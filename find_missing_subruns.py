@@ -104,7 +104,7 @@ if __name__ == '__main__':
                             try:
                                 l.remove(int(n))
                             except ValueError:
-                                print(n, "is not in the list")
+                                print("duplicate? " + str(root) + "/" + str(name))
                                 pass
                             run_sub_dict[rn] = l
 
