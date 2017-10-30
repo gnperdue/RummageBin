@@ -1,10 +1,9 @@
 #! /bin/bash
 # original script by J. Simone
 
-singularity exec /data/simone/singularity/ubuntu16-cuda8-cudnn6-ml.img /bin/bash <<EOF
+singularity shell /data/simone/singularity/ML/ubuntu16-ML.simg <<EOF
 cat /etc/issue
 nvidia-smi
-source /.singularity.d/environment
 python <<XEOF
 import tensorflow as tf
 # Creates a graph.
