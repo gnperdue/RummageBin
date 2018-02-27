@@ -31,4 +31,7 @@ MINOR=`echo $GENIEVER | cut -c9-9`
 PATCH=`echo $GENIEVER | cut -c11-11`
 echo "$MAJOR $MINOR $PATCH"
 
-
+TAG="trunk"
+if [[ $TAG == "trunk" ]]; then
+  echo "trunk!"
+fi

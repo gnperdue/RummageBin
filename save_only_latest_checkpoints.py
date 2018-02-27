@@ -13,7 +13,9 @@ if '-h' in sys.argv or '--help' in sys.argv:
     print(__doc__)
     sys.exit(1)
 
-dirpath = os.path.join(os.getcwd(), sys.argv[1])
+dirpath = sys.argv[1]
+if sys.argv[1][0] != '/':
+    dirpath = os.path.join(os.getcwd(), sys.argv[1])
 files = glob.glob(dirpath + '/checkpoints-*.*')
 
 rd = collections.defaultdict(list)
