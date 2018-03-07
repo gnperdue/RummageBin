@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+"""
+This script is used to mine the event counts from the HDF5 READMEs produced
+for the NukeCC DIS/Inclusive vertex finding problem. Example usage:
+    python get_event_sizes.py /pnfs/minerva/persistent/users/perdue/mlmpr/201801
+"""
 from __future__ import print_function
 import os
 import re
@@ -6,7 +11,11 @@ import sys
 
 excluded_patterns = [
     re.compile(r'(.*)segments_bal(.*)'),
-    re.compile(r'(.*)targets_bal(.*)')
+    re.compile(r'(.*)targets_bal(.*)'),
+    re.compile(r'(.*)\.tgz'),
+    re.compile(r'(.*)\.db\.gz'),
+    re.compile(r'(.*)\.txt\.gz'),
+    re.compile(r'README.txt')
 ]
 hitimes_shape_pat = re.compile(r'([0-9]+, 2, 127, 47)')
 
@@ -60,8 +69,6 @@ for k in ks:
 
 ks_data = sorted(ks_data)
 ks_mc = sorted(ks_mc)
-print(ks_data)
-print(ks_mc)
 
 for k in ks_data:
     print(k, evt_nums_dict[k]['count'])
