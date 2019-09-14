@@ -3,6 +3,10 @@ Copy all of the files in an input dir into zips in an output dir in bundles of
 size `chunksize`:
 
 python compressor.py inpdir outdir [chunksize - default 25]
+
+Note that if you have files with the same name in your current directory,
+there might be a clobber (we copy to local and zip and then put in the output
+directory).
 '''
 import os
 import shutil
